@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Map View-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="MapView" customModule="AutoSlient" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Lfd-ev-Q81">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
+                            </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T83-cT-6nY">
+                                <rect key="frame" x="15" y="682" width="384" height="180"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="I4o-JQ-oUl"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VAI-xv-41C">
+                                <rect key="frame" x="15" y="682" width="384" height="180"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="PHe-TQ-Z9L"/>
+                                </constraints>
+                                <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="VAI-xv-41C" firstAttribute="top" secondItem="Lfd-ev-Q81" secondAttribute="bottom" constant="15" id="3Ki-gc-w2D"/>
+                            <constraint firstItem="Lfd-ev-Q81" firstAttribute="trailing" secondItem="nex-y7-0Jq" secondAttribute="trailing" id="4JS-Qa-Nf6"/>
+                            <constraint firstItem="VAI-xv-41C" firstAttribute="leading" secondItem="nex-y7-0Jq" secondAttribute="leading" constant="15" id="6mZ-lF-bIE"/>
+                            <constraint firstItem="T83-cT-6nY" firstAttribute="top" secondItem="Lfd-ev-Q81" secondAttribute="bottom" constant="15" id="Nid-hh-MHL"/>
+                            <constraint firstItem="nex-y7-0Jq" firstAttribute="trailing" secondItem="VAI-xv-41C" secondAttribute="trailing" constant="15" id="OcL-YL-XFx"/>
+                            <constraint firstItem="Lfd-ev-Q81" firstAttribute="leading" secondItem="nex-y7-0Jq" secondAttribute="leading" id="R8X-n8-mQN"/>
+                            <constraint firstAttribute="trailing" secondItem="T83-cT-6nY" secondAttribute="trailing" constant="15" id="XBU-A3-Gu4"/>
+                            <constraint firstItem="nex-y7-0Jq" firstAttribute="bottom" secondItem="VAI-xv-41C" secondAttribute="bottom" id="ZgN-iA-Dzm"/>
+                            <constraint firstItem="T83-cT-6nY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="hK7-ox-CZL"/>
+                            <constraint firstItem="Lfd-ev-Q81" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="xcH-bS-nF5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="nex-y7-0Jq"/>
+                    </view>
+                    <connections>
+                        <outlet property="mMapView" destination="Lfd-ev-Q81" id="4mE-s0-c1q"/>
+                        <outlet property="mShadowView" destination="T83-cT-6nY" id="2og-g3-uFf"/>
+                        <outlet property="mTableSetting" destination="VAI-xv-41C" id="5of-1x-sBe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
+        </scene>
+    </scenes>
+</document>

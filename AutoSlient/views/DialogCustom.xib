@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DiaLogCustom" customModule="AutoSlient" customModuleProvider="target">
+            <connections>
+                <outlet property="OkButton" destination="U7y-8Y-Lr8" id="zlu-Lt-ogd"/>
+                <outlet property="mMessageLbl" destination="bMW-Cc-AUz" id="STq-Aq-2f7"/>
+                <outlet property="mTitleLbl" destination="D5z-AO-B5k" id="7rI-8g-4PC"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="DialogCustom" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GbR-gd-Rkl">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q21-uD-8fO">
+                    <rect key="frame" x="15" y="400.5" width="384" height="105"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notice" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5z-AO-B5k">
+                            <rect key="frame" x="166.5" y="5" width="51" height="19.5"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please turn on location to use this app" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMW-Cc-AUz">
+                            <rect key="frame" x="15" y="34.5" width="354" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U7y-8Y-Lr8">
+                            <rect key="frame" x="15" y="70" width="354" height="30"/>
+                            <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <state key="normal" title="Config">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="tapOkButton:" destination="-1" eventType="touchUpInside" id="1JQ-Lq-P3z"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="U7y-8Y-Lr8" secondAttribute="bottom" constant="5" id="72j-5R-QcA"/>
+                        <constraint firstItem="D5z-AO-B5k" firstAttribute="top" secondItem="q21-uD-8fO" secondAttribute="top" constant="5" id="7a1-O1-O5z"/>
+                        <constraint firstAttribute="trailing" secondItem="U7y-8Y-Lr8" secondAttribute="trailing" constant="15" id="BXh-D2-wb4"/>
+                        <constraint firstItem="bMW-Cc-AUz" firstAttribute="leading" secondItem="q21-uD-8fO" secondAttribute="leading" constant="15" id="Dq5-5x-tPK"/>
+                        <constraint firstItem="bMW-Cc-AUz" firstAttribute="top" secondItem="D5z-AO-B5k" secondAttribute="bottom" constant="10" id="F7E-Me-ND2"/>
+                        <constraint firstItem="U7y-8Y-Lr8" firstAttribute="top" secondItem="bMW-Cc-AUz" secondAttribute="bottom" constant="15" id="Fji-Mb-pGn"/>
+                        <constraint firstItem="bMW-Cc-AUz" firstAttribute="centerX" secondItem="q21-uD-8fO" secondAttribute="centerX" id="NMf-ob-UHm"/>
+                        <constraint firstItem="U7y-8Y-Lr8" firstAttribute="leading" secondItem="q21-uD-8fO" secondAttribute="leading" constant="15" id="Xez-wj-nvd"/>
+                        <constraint firstItem="D5z-AO-B5k" firstAttribute="centerX" secondItem="q21-uD-8fO" secondAttribute="centerX" id="fg8-UI-28T"/>
+                        <constraint firstAttribute="trailing" secondItem="bMW-Cc-AUz" secondAttribute="trailing" constant="15" id="lVg-FW-H4L"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="q21-uD-8fO" firstAttribute="centerX" secondItem="eQx-Pd-ziy" secondAttribute="centerX" id="7IM-O5-eBo"/>
+                <constraint firstItem="GbR-gd-Rkl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="CdI-sj-m5n"/>
+                <constraint firstItem="q21-uD-8fO" firstAttribute="leading" secondItem="eQx-Pd-ziy" secondAttribute="leading" constant="15" id="D3R-BN-8Ie"/>
+                <constraint firstAttribute="bottom" secondItem="GbR-gd-Rkl" secondAttribute="bottom" id="EPu-uL-53a"/>
+                <constraint firstItem="GbR-gd-Rkl" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="GBN-yi-caY"/>
+                <constraint firstItem="q21-uD-8fO" firstAttribute="centerY" secondItem="eQx-Pd-ziy" secondAttribute="centerY" id="fw5-77-1R0"/>
+                <constraint firstItem="eQx-Pd-ziy" firstAttribute="trailing" secondItem="q21-uD-8fO" secondAttribute="trailing" constant="15" id="jFH-rJ-7Cj"/>
+                <constraint firstAttribute="trailing" secondItem="GbR-gd-Rkl" secondAttribute="trailing" id="tOR-No-7Ql"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="eQx-Pd-ziy"/>
+            <point key="canvasLocation" x="137.68115942028987" y="118.52678571428571"/>
+        </view>
+    </objects>
+</document>
