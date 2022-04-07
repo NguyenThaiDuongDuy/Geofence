@@ -25,12 +25,10 @@ class MapView: UIViewController,
     @IBOutlet weak var mShadowView: UIView!
     var checkNum: Int = 0
     var pinCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(999, 999)
-    var CurrenRadius: Double = 100
-    var NotifyContent: UNUserNotificationCenter?
+    var currentRadius: Double = 100
+    var notifyContent: UNUserNotificationCenter?
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
-    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 3 }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath)
@@ -43,50 +41,48 @@ class MapView: UIViewController,
         }
         
         if indexPath.row == checkNum {
-            cell.accessoryView = UIImageView.init(image: UIImage.init(named: "Check"))
+            cell.accessoryView = UIImageView(image: UIImage(named: "Check"))
         } else {
             cell.accessoryView = nil
         }
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { 60 }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.checkNum = indexPath.row
+        checkNum = indexPath.row
         if indexPath.row == 0 {
-            self.CurrenRadius = 100
+            currentRadius = 100
         } else if indexPath.row == 1 {
-            self.CurrenRadius = 200
+            currentRadius = 200
         } else {
-            self.CurrenRadius = 300
+            currentRadius = 300
         }
         
-        updateCircle(coordinate: self.pinCoordinate, radius:  self.CurrenRadius)
-        updateTrankRegion(coordinate: self.pinCoordinate, radius: self.CurrenRadius)
+        updateCircle(coordinate: pinCoordinate, radius: currentRadius)
+        updateTrackRegion(coordinate: pinCoordinate, radius: currentRadius)
         tableView.reloadData()
     }
     
     
     @IBOutlet weak var mTableSetting: UITableView!
     @IBOutlet weak var mMapView: MKMapView!
-    let locationmanager = CLLocationManager()
+    let locationManager = CLLocationManager()
     let annotationPin1 = MKPointAnnotation()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         mMapView.delegate = self
         let notificationCenter  = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(appMovedToforeground), name: UIApplication.willEnterForegroundNotification, object: nil)
-        self.mMapView.addGestureRecognizer(UILongPressGestureRecognizer.init(target: self, action: #selector(handleLongPressGesture)))
+        notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        mMapView.addGestureRecognizer(UILongPressGestureRecognizer.init(target: self, action: #selector(handleLongPressGesture)))
         setupLocationManager()
-        self.mTableSetting.register(UITableViewCell.self, forCellReuseIdentifier: "SettingCell")
-        self.mTableSetting.delegate = self
-        self.mTableSetting.dataSource = self
-        self.mTableSetting.layer.cornerRadius = 10
-        self.mTableSetting.layer.masksToBounds = true
+        mTableSetting.register(UITableViewCell.self, forCellReuseIdentifier: "SettingCell")
+        mTableSetting.delegate = self
+        mTableSetting.dataSource = self
+        mTableSetting.layer.cornerRadius = 10
+        mTableSetting.layer.masksToBounds = true
         
         mShadowView.layer.shadowColor = UIColor.darkGray.cgColor
         mShadowView.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
@@ -101,68 +97,65 @@ class MapView: UIViewController,
          if gesture.state == .began {
               let touch: CGPoint = gesture.location(in: self.mMapView)
               let coordinate: CLLocationCoordinate2D = self.mMapView.convert(touch, toCoordinateFrom: self.mMapView)
-            ChossenMonitorRegion(coordinate: coordinate)
+            chossenMonitorRegion(coordinate: coordinate)
          }
     }
     
-    func ChossenMonitorRegion(coordinate: CLLocationCoordinate2D) {
+    func chossenMonitorRegion(coordinate: CLLocationCoordinate2D) {
         //Update Pin Annotion
-        self.pinCoordinate = coordinate
+        pinCoordinate = coordinate
         updatePinLocation(coordinate: coordinate)
-        updateCircle(coordinate: coordinate, radius: self.CurrenRadius)
-        updateTrankRegion(coordinate: coordinate, radius: self.CurrenRadius)
+        updateCircle(coordinate: coordinate, radius: currentRadius)
+        updateTrackRegion(coordinate: coordinate, radius: currentRadius)
     }
     
     func updatePinLocation(coordinate: CLLocationCoordinate2D) {
         print("Update Pin with coordinate: \(coordinate)")
-        self.mMapView.removeAnnotations(self.mMapView.annotations)
+        mMapView.removeAnnotations(mMapView.annotations)
         annotationPin1.coordinate = coordinate
         annotationPin1.title = "Monitor Region"
-        self.mMapView.addAnnotation(annotationPin1)
+        mMapView.addAnnotation(annotationPin1)
     }
     
-    func updateCircle(coordinate: CLLocationCoordinate2D, radius:Double) {
+    func updateCircle(coordinate: CLLocationCoordinate2D, radius: Double) {
         print("UpdateCircle with coordinate: \(coordinate), radius: \(radius)")
-        self.mMapView.removeOverlays(self.mMapView.overlays)
-        let circle = MKCircle.init(center: self.pinCoordinate, radius: radius)
-        self.mMapView.addOverlay(circle)
+        mMapView.removeOverlays(mMapView.overlays)
+        let circle = MKCircle.init(center: pinCoordinate, radius: radius)
+        mMapView.addOverlay(circle)
     }
     
     
-    func updateTrankRegion(coordinate: CLLocationCoordinate2D, radius:Double) {
-        let trackRegion = CLCircularRegion.init(center: self.pinCoordinate, radius: radius, identifier: "TrankRegion")
-         if let currentLocation = locationmanager.location?.coordinate {
+    func updateTrackRegion(coordinate: CLLocationCoordinate2D, radius: Double) {
+        let trackRegion = CLCircularRegion.init(center: pinCoordinate, radius: radius, identifier: "TrackRegion")
+         if let currentLocation = locationManager.location?.coordinate {
             print(trackRegion.contains(currentLocation))
         }
         trackRegion.notifyOnEntry = true
         trackRegion.notifyOnExit = true
-        self.locationmanager.startMonitoring(for: trackRegion)
+        locationManager.startMonitoring(for: trackRegion)
     }
     
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
-        guard let TrankRegion = region as? CLCircularRegion else { return}
-        if let currentLocation = locationmanager.location?.coordinate {
-            if (TrankRegion.contains(currentLocation)) {
+        guard let TrackRegion = region as? CLCircularRegion else { return}
+        if let currentLocation = locationManager.location?.coordinate {
+            if (TrackRegion.contains(currentLocation)) {
                 print("Wellcome work")
-                setTrigerNotifi(isInHead: true)
+                setTrigerNotify(isInHead: true)
             } else {
-                setTrigerNotifi(isInHead: false)
+                setTrigerNotify(isInHead: false)
                 print("See u later")
             }
         }
     }
     
-    @objc func appMovedToforeground() {
+    @objc func appMovedToForeground() {
         checkLocaitonService()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-    }
-    
     func setupLocationManager() {
-        locationmanager.delegate = self
-        locationmanager.desiredAccuracy = kCLLocationAccuracyBest
-        locationmanager.allowsBackgroundLocationUpdates = true
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.allowsBackgroundLocationUpdates = true
     }
     
     func checkLocaitonService() {
@@ -177,10 +170,10 @@ class MapView: UIViewController,
     }
     
     @objc func centerViewUserLocation() {
-        self.locationmanager.stopUpdatingLocation()
+        self.locationManager.stopUpdatingLocation()
         //print("Duy stopUpdatingLocation")
         print("centerViewUserLocation")
-        if let currentLocation = locationmanager.location?.coordinate {
+        if let currentLocation = locationManager.location?.coordinate {
             print("currentLocation is \(currentLocation)")
             let reginon =  MKCoordinateRegion.init(center: currentLocation, span: MKCoordinateSpan.init(latitudeDelta: 0.01, longitudeDelta: 0.01))
             DispatchQueue.main.async {
@@ -198,13 +191,13 @@ class MapView: UIViewController,
                 DialogService.ShareInstance.removeDiaLog()
                 self.centerViewUserLocation()
                 self.mMapView.showsUserLocation = true
-                self.locationmanager.startUpdatingLocation()
+                self.locationManager.startUpdatingLocation()
                 print("Duy startUpdatingLocation")
             }
             break
         case .notDetermined:
              print("notDetermined")
-             locationmanager.requestWhenInUseAuthorization()
+             locationManager.requestWhenInUseAuthorization()
             // show alert
             break
         case .restricted:
@@ -225,7 +218,7 @@ class MapView: UIViewController,
              DispatchQueue.main.async {
                 self.centerViewUserLocation()
                 self.mMapView.showsUserLocation = true
-                self.locationmanager.startUpdatingLocation()
+                self.locationManager.startUpdatingLocation()
                 print("Duy startUpdatingLocation")
              }
             break
@@ -269,24 +262,24 @@ class MapView: UIViewController,
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         print("didEnterRegion")
-        setTrigerNotifi(isInHead: true)
+        setTrigerNotify(isInHead: true)
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         print("didExitRegion")
-        setTrigerNotifi(isInHead: false)
+        setTrigerNotify(isInHead: false)
     }
     
     func requestAuthorrization() {
-        self.NotifyContent = UNUserNotificationCenter.current()
-        self.NotifyContent!.requestAuthorization(options: [.alert,.badge,.sound]) { (granted, error) in
+        self.notifyContent = UNUserNotificationCenter.current()
+        self.notifyContent!.requestAuthorization(options: [.alert,.badge,.sound]) { (granted, error) in
             print(granted)
         }
     }
     
-    func setTrigerNotifi(isInHead:Bool) {
+    func setTrigerNotify(isInHead:Bool) {
         let MapNotifCategory = UNNotificationCategory(identifier: "MapNotification", actions: [], intentIdentifiers: [], options: [])
-        self.NotifyContent!.setNotificationCategories([MapNotifCategory])
+        self.notifyContent!.setNotificationCategories([MapNotifCategory])
         let content = UNMutableNotificationContent()
         content.categoryIdentifier = "MapNotification"
         content.title = "Map Notification"
