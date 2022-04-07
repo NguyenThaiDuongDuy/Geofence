@@ -10,18 +10,23 @@ import UIKit
 import MapKit
 import CoreLocation
 
-enum RangeOfCirCle:Int {
-    case Small
-    case Medium
-    case Large
+enum RangeOfCirCle: Int {
+    case small
+    case medium
+    case large
 }
 
-class MapView: UIViewController,MKMapViewDelegate,DiaLogdelegate,UITableViewDataSource,UITableViewDelegate,UNUserNotificationCenterDelegate{
+class MapView: UIViewController,
+               MKMapViewDelegate,
+               DiaLogdelegate,
+               UITableViewDataSource,
+               UITableViewDelegate,
+               UNUserNotificationCenterDelegate {
     @IBOutlet weak var mShadowView: UIView!
-    var checkNum:Int = 0
-    var Pincoordinate:CLLocationCoordinate2D = CLLocationCoordinate2DMake(999, 999)
-    var CurrenRadius:Double = 100
-    var NotifyContent:UNUserNotificationCenter?
+    var checkNum: Int = 0
+    var pinCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(999, 999)
+    var CurrenRadius: Double = 100
+    var NotifyContent: UNUserNotificationCenter?
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
@@ -59,8 +64,8 @@ class MapView: UIViewController,MKMapViewDelegate,DiaLogdelegate,UITableViewData
             self.CurrenRadius = 300
         }
         
-        updateCircle(coordinate: self.Pincoordinate, radius:  self.CurrenRadius)
-        updateTrankRegion(coordinate: self.Pincoordinate, radius: self.CurrenRadius)
+        updateCircle(coordinate: self.pinCoordinate, radius:  self.CurrenRadius)
+        updateTrankRegion(coordinate: self.pinCoordinate, radius: self.CurrenRadius)
         tableView.reloadData()
     }
     
@@ -102,7 +107,7 @@ class MapView: UIViewController,MKMapViewDelegate,DiaLogdelegate,UITableViewData
     
     func ChossenMonitorRegion(coordinate: CLLocationCoordinate2D) {
         //Update Pin Annotion
-        self.Pincoordinate = coordinate
+        self.pinCoordinate = coordinate
         updatePinLocation(coordinate: coordinate)
         updateCircle(coordinate: coordinate, radius: self.CurrenRadius)
         updateTrankRegion(coordinate: coordinate, radius: self.CurrenRadius)
@@ -119,13 +124,13 @@ class MapView: UIViewController,MKMapViewDelegate,DiaLogdelegate,UITableViewData
     func updateCircle(coordinate: CLLocationCoordinate2D, radius:Double) {
         print("UpdateCircle with coordinate: \(coordinate), radius: \(radius)")
         self.mMapView.removeOverlays(self.mMapView.overlays)
-        let circle = MKCircle.init(center: self.Pincoordinate, radius: radius)
+        let circle = MKCircle.init(center: self.pinCoordinate, radius: radius)
         self.mMapView.addOverlay(circle)
     }
     
     
     func updateTrankRegion(coordinate: CLLocationCoordinate2D, radius:Double) {
-        let trackRegion = CLCircularRegion.init(center: self.Pincoordinate, radius: radius, identifier: "TrankRegion")
+        let trackRegion = CLCircularRegion.init(center: self.pinCoordinate, radius: radius, identifier: "TrankRegion")
          if let currentLocation = locationmanager.location?.coordinate {
             print(trackRegion.contains(currentLocation))
         }
